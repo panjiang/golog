@@ -68,12 +68,16 @@ func (l *Logger) log(level Level, msg string) {
 	}
 }
 
-func (l *Logger) Println(v ...interface{}) {
-	l.log(LevelInfo, fmt.Sprintln(v...))
+func (l *Logger) Print(v ...interface{}) {
+	l.log(LevelDebug, fmt.Sprint(v...))
 }
 
 func (l *Logger) Printf(format string, v ...interface{}) {
-	l.log(LevelInfo, fmt.Sprintf(format, v...))
+	l.log(LevelDebug, fmt.Sprintf(format, v...))
+}
+
+func (l *Logger) Println(v ...interface{}) {
+	l.log(LevelDebug, fmt.Sprintln(v...))
 }
 
 func (l *Logger) Debug(v ...interface{}) {
