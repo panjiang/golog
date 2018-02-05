@@ -113,25 +113,22 @@ func (l *Logger) Errorf(format string, v ...interface{}) {
 }
 
 func (l *Logger) Panic(v ...interface{}) {
-	l.log(LevelPanic, fmt.Sprintln(v...))
-	panic(fmt.Sprint(v...))
+	s := fmt.Sprintln(v...)
+	panic(s[:len(s)-1])
 }
 
 func (l *Logger) PanicNoPanic(v ...interface{}) string {
 	s := fmt.Sprintln(v...)
-	l.log(LevelPanic, s)
 	return s
 }
 
 func (l *Logger) Panicf(format string, v ...interface{}) {
 	s := fmt.Sprintf(format, v...)
-	l.log(LevelPanic, s)
 	panic(s)
 }
 
 func (l *Logger) PanicfNoPanic(format string, v ...interface{}) string {
 	s := fmt.Sprintf(format, v...)
-	l.log(LevelPanic, s)
 	return s
 }
 
