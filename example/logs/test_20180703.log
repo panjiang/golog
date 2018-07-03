@@ -1,0 +1,11 @@
+2018/07/03 16:11:29 [info] info message 0
+2018/07/03 16:11:29 [info] info message 0
+2018/07/03 16:11:29 [debug] debug message 1
+2018/07/03 16:11:29 [debug] debug message 1
+2018/07/03 16:11:29 [info] info message 2
+2018/07/03 16:11:29 [info] info message 2
+2018/07/03 16:11:29 [warn] warn message 3
+2018/07/03 16:11:29 [warn] warn message 3
+2018/07/03 16:11:29 [error] error message 4
+2018/07/03 16:11:29 [error] error message 4
+2018/07/03 16:11:29 [error] panic message 5

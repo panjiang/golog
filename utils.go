@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// Filename for resolving filename
 type Filename struct {
 	FullName string // eg: ./logs/test.log
 	Path     string // eg: ./logs
@@ -15,32 +16,33 @@ type Filename struct {
 	NamePart string // eg: test
 }
 
+// NewFilename creates object from a filename string
 func NewFilename(filename string) *Filename {
 	dir, fileName := path.Split(filename)
 	fileNameArr := strings.Split(fileName, ".")
 	namePart := strings.Join(fileNameArr[:len(fileNameArr)-1], ".")
 	fileExt := fileNameArr[len(fileNameArr)-1]
-	fn := &Filename{
+	return &Filename{
 		FullName: filename,
 		Path:     dir,
 		Name:     fileName,
 		Ext:      fileExt,
 		NamePart: namePart,
 	}
-	return fn
 }
 
+// SuffixFullName returns a full file name
 func (fn *Filename) SuffixFullName(suffix string) string {
 	name := fmt.Sprintf("%s_%s.%s", fn.NamePart, suffix, fn.Ext)
 	return path.Join(fn.Path, name)
 }
 
-// Get the Date num string
+// GetDateNumStr gets the Date num string
 func GetDateNumStr(t time.Time) string {
 	return t.Format("20060102")
 }
 
-// Get the Date Hour num string
+// GetDateHourStr gets the Date Hour num string
 func GetDateHourStr(t time.Time) string {
 	return t.Format("2006010215")
 }

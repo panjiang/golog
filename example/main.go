@@ -1,21 +1,5 @@
-# golog
-A light weight logger for GoLang
+package main
 
-- Wrap the buildin log module
-- Rotate log file by time (day, hour, close)
-- Support all levels and string format
-- Thread safety
-
-### Install
-
-```sh
-go get github.com/panjiang/golog
-```
-
-#### Example
-[Detail](https://github.com/panjiang/golog/example/)
-
-```golang
 import (
 	log "github.com/panjiang/golog"
 )
@@ -57,22 +41,3 @@ func main() {
 	log.Fatal("fatal message", 6)
 	log.Fatalf("fatal message %d", 6)
 }
-```
-
-#### Output
-
-- Auto generate a log file `./logs/test_20180703.log`
-
-``` shell
-2018/07/03 16:11:29 [info] info message 0
-2018/07/03 16:11:29 [info] info message 0
-2018/07/03 16:11:29 [debug] debug message 1
-2018/07/03 16:11:29 [debug] debug message 1
-2018/07/03 16:11:29 [info] info message 2
-2018/07/03 16:11:29 [info] info message 2
-2018/07/03 16:11:29 [warn] warn message 3
-2018/07/03 16:11:29 [warn] warn message 3
-2018/07/03 16:11:29 [error] error message 4
-2018/07/03 16:11:29 [error] error message 4
-2018/07/03 16:11:29 [error] panic message 5
-```

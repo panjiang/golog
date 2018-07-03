@@ -44,15 +44,16 @@ var levelsName = map[Level]string{
 	LevelFatal: NameError,
 }
 
+// Logger struct
 type Logger struct {
 	*log.Logger
 	Name  string // Name for ouput
 	Level Level  // Min level
 }
 
+// New create a new Logger
 func New(name string, level Level, out io.Writer) *Logger {
-	logger := &Logger{log.New(out, name, log.LstdFlags), name, level}
-	return logger
+	return &Logger{log.New(out, name, log.LstdFlags), name, level}
 }
 
 func (l *Logger) log(level Level, msg string) {
@@ -114,11 +115,14 @@ func (l *Logger) Errorf(format string, v ...interface{}) {
 
 func (l *Logger) Panic(v ...interface{}) {
 	s := fmt.Sprintln(v...)
+	l.log(LevelPanic, s)
 	panic(s[:len(s)-1])
 }
 
 func (l *Logger) PanicNoPanic(v ...interface{}) string {
 	s := fmt.Sprintln(v...)
+	l.log(LevelPanic, s)
+	fmt.Println("#######")
 	return s
 }
 
@@ -129,6 +133,7 @@ func (l *Logger) Panicf(format string, v ...interface{}) {
 
 func (l *Logger) PanicfNoPanic(format string, v ...interface{}) string {
 	s := fmt.Sprintf(format, v...)
+	l.log(LevelPanic, s)
 	return s
 }
 

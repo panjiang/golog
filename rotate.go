@@ -6,31 +6,33 @@ import (
 	"time"
 )
 
-type RotateTime uint8
+type rotateTime uint8
 
+// Rotate by time unit
 const (
-	RotateTimeClose RotateTime = iota
+	RotateTimeClose rotateTime = iota
 	RotateTimeByDay
 	RotateTimeByHour
 )
 
 // Map level id with name
-var rotateNames = map[string]RotateTime{
+var rotateNames = map[string]rotateTime{
 	"close": RotateTimeClose,
 	"day":   RotateTimeByDay,
 	"hour":  RotateTimeByHour,
 }
 
+// RotateWriter a rotate writer handler
 type RotateWriter struct {
 	lock          sync.Mutex
 	file          *os.File
 	fileName      *Filename
-	rotateTimeBy  RotateTime // rotate by certain durations
+	rotateTimeBy  rotateTime // rotate by certain durations
 	rotateTimeCur string     // store time string for rotation
 }
 
-// create path if not exist
-func NewRotateWriter(filename string, rotateTimeBy RotateTime) (*RotateWriter, error) {
+// NewRotateWriter will create path if not exist
+func NewRotateWriter(filename string, rotateTimeBy rotateTime) (*RotateWriter, error) {
 	rw := &RotateWriter{
 		fileName:     NewFilename(filename),
 		rotateTimeBy: rotateTimeBy,
@@ -61,7 +63,7 @@ func NewRotateWriter(filename string, rotateTimeBy RotateTime) (*RotateWriter, e
 	return rw, nil
 }
 
-// Bind with current log file
+// BindFile binds with current log file
 // When startup, and rotation
 func (rw *RotateWriter) BindFile(curFileName string) error {
 	f, err := os.OpenFile(curFileName, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0755)
@@ -72,7 +74,7 @@ func (rw *RotateWriter) BindFile(curFileName string) error {
 	return nil
 }
 
-// Judge current file name
+// CurentRotateTimeKey Judges current file name
 // will with date num suffix while open date rolation
 func (rw *RotateWriter) CurentRotateTimeKey() string {
 	switch rw.rotateTimeBy {

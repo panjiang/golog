@@ -6,26 +6,30 @@ import (
 	"path"
 )
 
-var std *Logger = New("", LevelDebug, os.Stderr)
+var std = New("", LevelDebug, os.Stderr)
 var loggers = []*Logger{}
 
+// GetLogger fetchs this module log
 func GetLogger() *Logger {
 	return std
 }
 
+// AddHandler registers handler
 func AddHandler(logger *Logger) {
 	loggers = append(loggers, logger)
 }
 
+// SetLevel sets log output level
 func SetLevel(level Level) {
 	std.Level = level
 }
 
+// SetOutput sets output stream
 func SetOutput(out io.Writer) {
 	std.SetOutput(out)
 }
 
-// create path if not exist
+// FileWriter creates the path if not exist
 func FileWriter(filename string) (*os.File, error) {
 	dir := path.Dir(filename)
 	if _, err := os.Stat(dir); err != nil {
@@ -43,6 +47,7 @@ func FileWriter(filename string) (*os.File, error) {
 	return f, nil
 }
 
+// Println same with Info
 func Println(v ...interface{}) {
 	if len(loggers) == 0 {
 		std.Info(v...)
@@ -53,6 +58,7 @@ func Println(v ...interface{}) {
 	}
 }
 
+// Printf same with Infof
 func Printf(format string, v ...interface{}) {
 	if len(loggers) == 0 {
 		std.Infof(format, v...)
