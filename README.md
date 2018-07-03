@@ -13,7 +13,7 @@ go get github.com/panjiang/golog
 ```
 
 #### Example
-[Detail](https://github.com/panjiang/golog/tree/master/example)
+See [source code](https://github.com/panjiang/golog/tree/master/example)
 
 ```golang
 import (
